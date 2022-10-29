@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!-- theme made by ysi. :) -->
+<html>
+    <head>
+        <title>{Title}</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="shortcut icon" href="{Favicon}">
+        
+        {block:hidden}
+        <meta name="Select: Avatar Shape" title="Circle">
+        {/block:hidden}
+        
+        
+        <style>
+        
+        body { min-height: 100vh; margin:0; font-size:18px;}
+
+        
+        .main{
+            display:flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            background: {BackgroundColor};
+        }
+        
+        h1{
+            font-style: {TitleFont}!important;
+            font-weight: {TitleFontWeight};
+            font-size: 2em;
+        }
+        
+        a{
+            color:black;
+            text-decoration: none;
+        }
+        
+        /* HEADER STYLING */
+        
+        .header{
+            position:relative;
+            height: 300px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        #headerimg{
+            position:absolute;
+            width:100%;
+        }
+        
+        .bloginfo{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align:center;
+            background: #ffffff50;
+            padding: 2%;
+            border-radius: 5px;
+            width: 70%;
+        }
+        
+        /* NAV STYLING */
+        nav{
+            width: 100%;
+            position: sticky;
+            z-index: 1;
+            top: 0;
+            background: black;
+            color: white;
+            padding: 2% 0% 2% 0%;
+            text-align: center;
+            font-size:1.5em;
+        }
+        nav > a{
+            color:white;
+            text-decoration: none;
+        }
+
+        /* LIST/POSTS STYLING */
+        
+        .postsdiv{
+            margin:5%;
+            width:50%;
+        }
+        
+        ol{
+            list-style-type: none;
+            margin: 0;
+            padding:0;
+        }
+        li{
+            padding:5%;
+            margin-bottom:5%;
+            background:white;
+            border-radius: 5px;
+            filter: drop-shadow(0px 0px 3px #00000050);
+        }
+        li:last-child{
+            margin-bottom:0%;
+        }
+        
+        .post > img{
+            width:100%;
+        }
+        /* tags style */
+        .tags{
+            padding:0;
+        }
+        .tags > li{
+            display: contents;
+        }
+        .tags > li > a{
+            color:#a4a4a4;
+            text-decoration:underline;
+        }
+        /* notes style */
+        .notecount > a{
+            font-size:15px;
+        }
+        .datetext{
+            text-align:right;
+        }
+        
+        .noteanddate > p{
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+            
+        </style>
+    </head>
+    <body>
+    <div class="main">
+    
+        <div class="header">
+            <img src={HeaderImage} id="headerimg">
+            <div class="bloginfo">
+                <p id="portrait"><img src={PortraitURL-64}></p>
+                <h1>{Title}</h1>
+                <p id="description">{Description}</p>
+            </div>
+        </div>
+            
+        <nav>
+            <a href="/">Top</a>
+            {block:AskEnabled}
+             | <a href="/ask">{AskLabel}</a>
+            {/block:AskEnabled}
+        </nav>
+
+        <div class="postsdiv">
+        <ol id="posts">
+            {block:Posts}
+            {block:Text}
+                    <li class="post text">
+                        {block:Title}
+                            <h3>{Title}</h3>
+                        {/block:Title}{Body}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>
+                    </li>
+                {/block:Text}{block:Photo}
+                    <li class="post photo">
+                        <img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>
+                    </li>
+                {/block:Photo}{block:Panorama}
+                    <li class="post panorama">
+                        {LinkOpenTag}
+                            <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+                        {LinkCloseTag}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>              
+                        </li>
+                {/block:Panorama}{block:Photoset}
+                    <li class="post photoset">
+                        {Photoset-500}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>
+                        </li>
+                {/block:Photoset}{block:Quote}
+                    <li class="post quote">
+                        " {Quote} "
+                        {block:Source}
+                            <div class="source">{Source}</div>
+                        {/block:Source}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>                 
+                        </li>
+                {/block:Quote}{block:Link}
+                    <li class="post link">
+                        <a href="{URL}" class="link" {Target}>{Name}</a>
+
+                        {block:Description}
+                            <div class="description">{Description}</div>
+                        {/block:Description}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div> 
+                        </li>
+                {/block:Link}{block:Chat}
+                    <li class="post chat">
+                        {block:Title}
+                            <h3><a href="{Permalink}">{Title}</a></h3>
+                        {/block:Title}
+
+                        <ul class="chat">
+                            {block:Lines}
+                                <li class="{Alt} user_{UserNumber}">
+                                    {block:Label}
+                                        <span class="label">{Label}</span>
+                                    {/block:Label}{Line}
+                                </li>
+                            {/block:Lines}
+                        </ul>
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>  
+                        </li>
+                {/block:Chat}{block:Video}
+                    <li class="post video">
+                        {Video-500}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>  
+                        </li>
+                {/block:Video}{block:Audio}
+                    <li class="post audio">
+                        {AudioEmbed}{block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                        {block:HasTags}
+                        <ul class="tags">
+                            {block:Tags}
+                                <li>
+                                    <a href="{TagURL}"># {Tag}</a>
+                                </li>
+                            {/block:Tags}
+                        </ul>
+                        {/block:HasTags}
+                        <div class="noteanddate">
+                        <p>
+                        {block:Date}
+                            <span class="datetext">{DayOfMonthWithZero}	{Month} {Year}</span>
+                        {/block:Date}
+                        {block:NoteCount}
+                            <span class="notecount"><a href={Permalink}>{NoteCount}</a> &#11088;</span>
+                        {/block:NoteCount}
+                        </p>
+                        </div>  
+                        </li>
+                {/block:Audio}
+                {/block:Posts}
+        </ol>
+        </div>
+        
+        <div class="paginationdiv">
+        {block:Pagination}
+            {block:PreviousPage}
+                <p><a href={PreviousPage}>Previous</a></p>
+            {/block:PreviousPage}
+            {block:NextPage}
+                <p><a href={NextPage}>Next</a></p>
+            {/block:NextPage}
+        {/block:Pagination}
+        </div>
+    </div>
+    </body>
+</html>
